@@ -1,0 +1,50 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+
+    int arr[100];
+    for(int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
+
+    int visited[100] = {0};
+    int longest = 0;
+
+    for(int i = 0; i < n; i++) {
+        if(visited[i] == 1)
+            continue;
+
+        int count = 1;
+        visited[i] = 1;
+
+        int left = arr[i] - 1;
+        int right = arr[i] + 1;
+
+        for(int j = 0; j < n; j++) {
+            if(arr[j] == left && visited[j] == 0) {
+                visited[j] = 1;
+                left--;
+                count++;
+                j = -1;
+            }
+        }
+
+        for(int j = 0; j < n; j++) {
+            if(arr[j] == right && visited[j] == 0) {
+                visited[j] = 1;
+                right++;
+                count++;
+                j = -1;
+            }
+        }
+
+        if(count > longest)
+            longest = count;
+    }
+
+    cout << longest;
+    return 0;
+}
